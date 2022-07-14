@@ -5,5 +5,5 @@
 ### Prisma Generation
 
 ```bash
-npx prisma generate
+ cd apps/order-manager && npx prisma format && npx prisma generate
 ```

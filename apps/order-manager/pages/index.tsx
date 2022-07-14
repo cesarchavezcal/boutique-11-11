@@ -1,7 +1,6 @@
-import { useSession, signIn } from 'next-auth/react';
+import { useSession, signIn, signOut } from 'next-auth/react';
 export function Index() {
   const { data, status } = useSession();
-  console.log(data);
   /*
    * Replace the elements below with your own.
    *
@@ -9,7 +8,14 @@ export function Index() {
    */
   return (
     <div>
-      <button onClick={() => signIn()}>Signin</button>
+      {data?.user && (
+        <>
+          <img src={data.user.image} alt="" />
+          <p>Hi {data.user.name}</p>
+        </>
+      )}
+      {!data?.user && <button onClick={() => signIn()}>Iniciar sesión</button>}
+      {data?.user && <button onClick={() => signOut()}>Cerrar sesión</button>}
     </div>
   );
 }

@@ -1,5 +1,7 @@
-import { signIn } from 'next-auth/react';
+import { useSession, signIn } from 'next-auth/react';
 export function Index() {
+  const { data, status } = useSession();
+  console.log(data);
   /*
    * Replace the elements below with your own.
    *

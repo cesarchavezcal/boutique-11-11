@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import CredentialsProvider from 'next-auth/providers/credentials';
+import FacebookProvider from 'next-auth/providers/facebook';
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 
@@ -10,7 +10,12 @@ export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   secret: process.env.SECRET,
   session: { strategy: 'jwt' },
-  providers: [],
+  providers: [
+    FacebookProvider({
+      clientId: process.env.FACEBOOK_ID,
+      clientSecret: process.env.FACEBOOK_SECRET,
+    }),
+  ],
 };
 
 export default NextAuth(authOptions);

@@ -13,8 +13,8 @@ export const authOptions: NextAuthOptions = {
   session: { strategy: 'jwt' },
   providers: [
     FacebookProvider({
-      clientId: process.env.FACEBOOK_ID,
-      clientSecret: process.env.FACEBOOK_SECRET,
+      clientId: '3183624358543273',
+      clientSecret: 'ed262e2c3e4e2dba17e48fc8c4d16bf8',
     }),
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,

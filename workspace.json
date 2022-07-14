@@ -1,0 +1,8 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "order-manager": "apps/order-manager",
+    "order-manager-e2e": "apps/order-manager-e2e"
+  }
+}

@@ -1,7 +1,11 @@
 import Script from 'next/script';
 import { useEffect } from 'react';
-
-declare const window: any;
+// Hack to fix the cloudinary issue
+declare global {
+  interface Window {
+    cloudinary: any;
+  }
+}
 
 export const Cloudinary = ({ imageHandler }) => {
   useEffect(() => {

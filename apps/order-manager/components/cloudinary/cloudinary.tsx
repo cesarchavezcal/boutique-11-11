@@ -1,8 +1,11 @@
 import Script from 'next/script';
 import { useEffect } from 'react';
+
+declare const window: any;
+
 export const Cloudinary = ({ imageHandler }) => {
   useEffect(() => {
-    const myWidget = window.cloudinary?.createUploadWidget(
+    const myWidget: Window = window.cloudinary?.createUploadWidget(
       {
         cloudName: 'dkkvyjija',
         uploadPreset: 'zxiob9mp',

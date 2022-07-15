@@ -10,6 +10,9 @@ const nextConfig = {
     // See: https://github.com/gregberge/svgr
     svgr: false,
   },
+  images: {
+    domains: ['platform-lookaside.fbsbx.com'],
+  },
 };
 
 module.exports = withNx(nextConfig);

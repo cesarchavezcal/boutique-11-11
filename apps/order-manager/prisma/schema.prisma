@@ -41,9 +41,11 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
+  phone         String?
+  address       String?
   accounts      Account[]
   sessions      Session[]
-  // branch        Branch[]
+  orders        Order[]
 }
 
 model VerificationToken {
@@ -58,11 +60,13 @@ model VerificationToken {
 model Order {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   address   String
-  client    String
   comments  String?
   createdAt DateTime @default(now())
-  order     String[]
   phone     String
   store     String
   updatedAt DateTime @updatedAt
+  client    User?    @relation(fields: [clientId], references: [id])
+  clientId  String?
+  images    String[]
+  status    String?
 }

@@ -14,6 +14,8 @@ export default async function handler(
   switch (req.method) {
     case 'GET':
       return getAllOrders(res, req, session);
+    case 'POST':
+      return createOrder(res, req, session);
   }
 }
 
@@ -29,24 +31,26 @@ const createOrder = async (
   });
 
   try {
-    const order = {
-      address: user.address,
-      comments: 'string',
-      phone: user.phone,
-      store: 'string',
-      images: [],
-      status: 'Published',
-    };
-
-    const order_ = await prisma.order
+    const { address, clientId, comments, images, phone, store, status } =
+      req.body;
+    const newOrder = await prisma.order
       .create({
         data: {
-          ...order,
-          client: { connect: { id: session?.user.id as string } },
+          address,
+          clientId,
+          comments,
+          images,
+          phone,
+          store,
+          status,
         },
       })
       .catch((err) => console.log(err));
-    res.status(200).json({ order_ });
+    console.log(newOrder);
+    res.status(200).json({
+      newOrder,
+      status: 'Created',
+    });
   } catch (error) {
     return res.status(500).json(error);
   }

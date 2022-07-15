@@ -11,7 +11,7 @@ const nextConfig = {
     svgr: false,
   },
   images: {
-    domains: ['platform-lookaside.fbsbx.com'],
+    domains: ['platform-lookaside.fbsbx.com', 'res.cloudinary.com'],
   },
 };
 

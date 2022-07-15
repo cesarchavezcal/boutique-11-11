@@ -16,7 +16,7 @@ export type UserT = {
   image: string;
   isNewUser?: boolean | unknown;
   name: string;
-  orders?: any[];
+  orders?: OrderT[];
   phone: string;
   tokenType?: string | unknown;
 };

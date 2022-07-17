@@ -1,92 +1,75 @@
-import { useSession, signIn, signOut } from 'next-auth/react';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Cloudinary } from '../components';
+import { UserT } from '@boutique-11-11/models';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import Image from 'next/image';
+import { MdLocationOn, MdEmail, MdPhone, MdExitToApp } from 'react-icons/md';
+import useSWR from 'swr';
+import {
+  IoMailOutline,
+  IoLocationOutline,
+  IoPhonePortraitOutline,
+  IoExitOutline,
+} from 'react-icons/io5';
+import { LoginCard, Spinner, ProfileCard } from '../components';
 
-export function Index() {
-  const router = useRouter();
+/* eslint-disable-next-line */
+export interface ProfileProps {}
 
-  const { data } = useSession();
-  const [img, setImg] = useState<string[]>([]);
+const fetcher = (url) => fetch(url).then((res) => res.json());
+const url = 'https://boutique-11-11.vercel.app/api/user';
 
-  const imageHandler = (newValue) => {
-    setImg((current) => [...current, newValue]);
-  };
-
-  const {
-    handleSubmit,
-    register,
-    reset,
-    formState: { errors },
-  } = useForm();
-
-  async function submitHandler(values) {
-    console.log(img);
-    const orderObject = {
-      address: data.user.address,
-      clientId: data.user.id,
-      comments: values.comments,
-      images: img,
-      phone: data.user.phone,
-      store: values.store,
-      status: 'No pedido',
-    };
-
-    await fetch('/api/order', {
-      method: 'POST',
-      body: JSON.stringify(orderObject),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }).then((res) => {
-      router.push('/profile');
-    });
-  }
-
+export function Profile(props: ProfileProps) {
+  const { data, status } = useSession();
+  const fetchOrders = useSWR<{ data?: UserT }>(url, fetcher);
   return (
-    <div>
-      <form
-        onSubmit={handleSubmit(submitHandler)}
-        className="bg-white shadow rounded-lg mb-6 p-4 grid gap-2"
-      >
-        <Cloudinary imageHandler={imageHandler} />
-        <div className="mt-2 flex flex-wrap rounded border border-solid p-2">
-          {img.map((image, i) => {
-            return (
-              <img
-                key={i}
-                src={image}
-                alt={image}
-                width={320}
-                className="mr-2"
-              />
-            );
-          })}
-        </div>
-        <select
-          {...register('store')}
-          className="w-full rounded-lg p-2 text-sm bg-gray-100 border border-transparent appearance-none rounded-tg placeholder-gray-400"
-        >
-          <option disabled>Tienda</option>
-          <option value="Shein">Shein</option>
-          <option value="Flexi">Flexi</option>
-          <option value="Privalia">Privalia</option>
-        </select>
-        <textarea
-          placeholder="Comentarios"
-          className="w-full rounded-lg p-2 text-sm bg-gray-100 border border-transparent appearance-none rounded-tg placeholder-gray-400"
-          {...register('comments')}
-        />
-        <button
-          className="flex justify-center py-2 px-4 rounded-lg text-sm bg-blue-600 text-white shadow-lg"
-          type="submit"
-        >
-          Submit
-        </button>
-      </form>
-    </div>
+    <section className="container p-4 min-h-[calc(100vh-4rem)]">
+      {status === 'loading' && <Spinner />}
+      {!data && status !== 'loading' && <LoginCard />}
+      {data && <ProfileCard data={data.user} />}
+      <div className="grid grid-cols-12 gap-2 justify-center items-center my-3">
+        {fetchOrders.data?.data?.orders?.map((order, i) => {
+          return (
+            <div
+              key={i}
+              className="flex bg-white shadow rounded-lg p-2 col-span-full"
+            >
+              {order.images.map((img, i) => {
+                return (
+                  <Image
+                    key={i}
+                    src={img}
+                    className="w-16  object-cover  h-16 rounded-xl"
+                    width={64}
+                    height={64}
+                    layout="fixed"
+                    alt={img}
+                  />
+                );
+              })}
+
+              <div className="flex flex-col justify-center w-full px-2 py-1">
+                <div className="flex justify-between items-center ">
+                  <div className="flex flex-col">
+                    <p className="text-sm">
+                      Tienda:
+                      <span className=" font-medium"> {order.store}</span>
+                    </p>
+                    <p className="text-xs">
+                      Comentarios:
+                      <span className=" font-medium">{order.comments}</span>
+                    </p>
+                    <p className="text-xs">
+                      Status:
+                      <span className=" font-medium"> {order.status}</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
   );
 }
 
-export default Index;
+export default Profile;

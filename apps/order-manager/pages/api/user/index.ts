@@ -9,9 +9,13 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const session = await unstable_getServerSession(req, res, authOptions);
+  const id = req.query.id as string;
+
   switch (req.method) {
     case 'GET':
       return getUserById(res, req, session);
+    case 'PATCH':
+      return patchUserById(res, req, session);
   }
 }
 
@@ -47,12 +51,8 @@ const patchUserById = async (
   session: Session
 ) => {
   try {
-    const phone = '334343';
-    const address = '334343';
-    const prevUser = await prisma.user.findUnique({
-      where: { id: String(session.user.id) },
-    });
-    console.log('prevUser', prevUser);
+    const { phone, address } = req.body;
+    console.log(req.body);
     const patchedUser = await prisma.user
       .update({
         where: { id: String(session.user.id) },
@@ -70,6 +70,7 @@ const patchUserById = async (
     return res.status(500).json(error);
   }
 };
+
 const deleteUserById = async (
   res: NextApiResponse,
   req: NextApiRequest,

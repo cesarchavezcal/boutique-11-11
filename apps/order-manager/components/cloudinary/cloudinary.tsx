@@ -49,7 +49,7 @@ export const Cloudinary = ({ imageHandler }) => {
         id="cloudinary-widget"
         className="flex justify-center py-2 px-4 rounded-lg text-sm bg-blue-600 text-white shadow-lg"
       >
-        Subir Imágenes de Pedidos
+        Sube tus imágenes de pedidos
       </button>
     </>
   );

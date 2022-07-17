@@ -2,7 +2,7 @@ import { Session } from 'next-auth';
 import Link from 'next/link';
 import Image from 'next/image';
 import { signIn, signOut, useSession } from 'next-auth/react';
-import { MdAccountCircle, MdCart } from 'react-icons/md';
+import { MdAccountCircle } from 'react-icons/md';
 import { IoBagHandleOutline } from 'react-icons/io5';
 /* eslint-disable-next-line */
 export interface NavigationProps {}

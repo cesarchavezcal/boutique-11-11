@@ -1,4 +1,5 @@
 export type OrderT = {
+  id: string;
   client: string;
   address: string;
   comments: string;

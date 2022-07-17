@@ -73,9 +73,8 @@ const getAllOrders = async (
         },
       },
     });
-    const count = await prisma.order.count();
     if (data) {
-      res.status(200).json({ data, count });
+      res.status(200).json({ data });
     } else {
       return res.status(200).json({ data: false });
     }

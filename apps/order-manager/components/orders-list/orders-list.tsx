@@ -7,7 +7,6 @@ export interface OrdersListProps {}
 
 export function OrdersList(props: OrdersListProps) {
   const { data: orders, isLoading, isError, isSuccess } = useFetchOrdersQuery();
-  console.log(orders?.data);
   return (
     <>
       <div className="p-4 max-w-md bg-white rounded-lg border shadow-md sm:p-8 ">

@@ -39,8 +39,8 @@ export function Index() {
       headers: {
         'Content-Type': 'application/json',
       },
-    }).then((res) => {
-      router.push('/profile');
+    }).then(() => {
+      router.push('/');
     });
   }
 

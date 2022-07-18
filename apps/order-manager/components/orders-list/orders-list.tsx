@@ -1,19 +1,27 @@
 import Image from 'next/image';
-import { useFetchOrdersQuery } from '@order-manager/redux/features/orders/orders-api-slice';
+import { useFetchUserByIdQuery } from './../../redux/features/user/user-api-slice';
+import { useSession } from 'next-auth/react';
 import ErrorMessage from '../error-message/error-message';
 
 /* eslint-disable-next-line */
 export interface OrdersListProps {}
 
 export function OrdersList(props: OrdersListProps) {
-  const { data: orders, isLoading, isError, isSuccess } = useFetchOrdersQuery();
+  const id: string = useSession().data?.user?.id as string;
+  const {
+    data: user,
+    isLoading,
+    isError,
+    isSuccess,
+  } = useFetchUserByIdQuery(id);
+
   return (
     <>
       <div className="p-4 max-w-md bg-white rounded-lg border shadow-md sm:p-8 ">
         <div className="flex justify-between items-center mb-4">
           <p className="text-lg text-rose-700 font-normal">Mis Órdenes</p>
         </div>
-        {isSuccess && !orders?.data.length && (
+        {isSuccess && !user?.data.orders.length && (
           <ErrorMessage message="Aún no hay órdenes" />
         )}
 
@@ -35,10 +43,10 @@ export function OrdersList(props: OrdersListProps) {
             <span className="sr-only">Loading...</span>
           </div>
         )}
-        {isSuccess && orders?.data.length ? (
+        {isSuccess && user.data.orders?.length ? (
           <div className="flow-root">
             <ul role="list" className="divide-y divide-gray-200 ">
-              {orders.data.map((order, i) => (
+              {user.data.orders.map((order, i) => (
                 <li key={i} className="py-3 sm:py-4">
                   <div className="flex items-center space-x-4">
                     <div className="flex-shrink-0">

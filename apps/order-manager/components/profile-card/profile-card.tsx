@@ -12,7 +12,7 @@ import { useSession, signOut } from 'next-auth/react';
 import {
   useFetchUserByIdQuery,
   useUpdateUserMutation,
-} from '@order-manager/redux/features/user/user-api-slice';
+} from './../../redux/features/user/user-api-slice';
 import ErrorMessage from '../error-message/error-message';
 
 /* eslint-disable-next-line */

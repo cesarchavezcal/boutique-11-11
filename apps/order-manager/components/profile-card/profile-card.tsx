@@ -41,7 +41,7 @@ export function ProfileCard(props: ProfileCardProps) {
   }
 
   return (
-    <div className="bg-white shadow rounded-lg p-4 grid gap-4">
+    <div className="bg-white shadow rounded-lg p-4 flex justify-center items-start gap-4">
       {isError && (
         <p className="text-sm font-semibold text-center text-gray-600 flex justify-center items-center">
           <IoAlertCircleOutline className="text-base mr-1 text-red-600" />
@@ -97,7 +97,6 @@ export function ProfileCard(props: ProfileCardProps) {
               {data.data.phone ?? 'No hay un número registrado'}
             </p>
           </div>
-          <h1>{isUpdating}</h1>
           {!data?.data.phone || !data?.data.address ? (
             <form onSubmit={handleSubmit(submitHandler)} className="grid gap-2">
               <hr />

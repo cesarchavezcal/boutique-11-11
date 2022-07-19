@@ -17,7 +17,7 @@ export function OrdersList(props: OrdersListProps) {
 
   return (
     <>
-      <div className="p-4 max-w-md bg-white rounded-lg border shadow-md sm:p-8 ">
+      <div className="p-4 max-w-md bg-white rounded-lg border shadow-md sm:p-8">
         <div className="flex justify-between items-center mb-4">
           <p className="text-lg text-rose-700 font-normal">Mis Órdenes</p>
         </div>
@@ -76,7 +76,7 @@ export function OrdersList(props: OrdersListProps) {
                       </p>
                     </div>
                     <div className="inline-flex items-center text-base font-semibold text-gray-900 ">
-                      $23.09
+                      ${order.cost}
                     </div>
                   </div>
                 </li>

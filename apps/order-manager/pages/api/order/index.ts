@@ -31,7 +31,7 @@ const createOrder = async (
   });
 
   try {
-    const { address, clientId, comments, images, phone, store, status } =
+    const { address, clientId, comments, images, phone, store, status, cost } =
       req.body;
     const newOrder = await prisma.order
       .create({
@@ -43,6 +43,7 @@ const createOrder = async (
           phone,
           store,
           status,
+          cost,
         },
       })
       .catch((err) => console.log(err));

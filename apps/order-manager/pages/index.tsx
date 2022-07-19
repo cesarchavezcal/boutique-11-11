@@ -7,7 +7,7 @@ export interface ProfileProps {}
 export function Profile(props: ProfileProps) {
   const { data } = useSession();
   return (
-    <section className="container p-4 min-h-[calc(100vh-4rem)] grid grid-cols-1 gap-4">
+    <section className="container p-4 min-h-[calc(100vh-4rem)] grid grid-cols-1 gap-4 content-start">
       {!data ? (
         <LoginCard />
       ) : (

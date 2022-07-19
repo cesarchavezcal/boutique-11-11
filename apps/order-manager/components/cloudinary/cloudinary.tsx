@@ -1,5 +1,6 @@
 import Script from 'next/script';
 import { useEffect } from 'react';
+import { IoImagesOutline } from 'react-icons/io5';
 // Hack to fix the cloudinary issue
 declare global {
   interface Window {
@@ -47,9 +48,10 @@ export const Cloudinary = ({ imageHandler }) => {
       />
       <button
         id="cloudinary-widget"
-        className="flex justify-center py-2 px-4 rounded-lg text-sm bg-blue-600 text-white shadow-lg"
+        className="inline-flex justify-center gap-2 items-center relative px-4 py-2 border rounded-full shadow-lg bg-rose-500 text-white w-full"
       >
-        Sube tus imágenes de pedidos
+        <span className="text-sm">Sube tus imágenes de pedidos</span>
+        <IoImagesOutline />
       </button>
     </>
   );

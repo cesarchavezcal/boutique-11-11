@@ -7,6 +7,7 @@ export type OrderT = {
   store: string;
   images: string[];
   status: string;
+  cost: number;
 };
 
 export type UserT = {

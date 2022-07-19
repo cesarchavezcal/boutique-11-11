@@ -6,7 +6,7 @@ export interface LoginCardProps {}
 
 export function LoginCard(props: LoginCardProps) {
   return (
-    <section className="w-full grid gap-4 bg-white shadow rounded-lg p-10 justify-center">
+    <section className="w-full grid gap-4 bg-white shadow rounded-lg p-10 justify-center h-fit">
       <figure className="mx-auto aspect-square">
         <Image
           src={'/images/brand.png'}

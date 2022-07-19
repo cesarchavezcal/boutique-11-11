@@ -5,6 +5,3 @@
  * .container {
  * }
 */
-.container {
-  @apply min-h-screen bg-gray-100;
-}

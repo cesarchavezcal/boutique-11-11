@@ -1,17 +1,22 @@
 import { AppProps } from 'next/app';
-import Head from 'next/head';
+import { SessionProvider } from 'next-auth/react';
 import './styles.css';
+import { Layout } from './../components';
+import { Provider } from 'react-redux';
+import { store } from '../redux/store';
 
-function CustomApp({ Component, pageProps }: AppProps) {
+function CustomApp({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps) {
   return (
-    <>
-      <Head>
-        <title>Welcome to order-manager!</title>
-      </Head>
-      <main className="app">
-        <Component {...pageProps} />
-      </main>
-    </>
+    <Provider store={store}>
+      <SessionProvider session={session}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </SessionProvider>
+    </Provider>
   );
 }
 

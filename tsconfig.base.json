@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@boutique-11-11/models": ["libs/models/src/index.ts"],
+      "@order-manager/*": ["apps/order-manager/*"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

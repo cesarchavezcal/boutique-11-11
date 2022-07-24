@@ -7,10 +7,16 @@ export interface ErrorMessageProps {
 
 export function ErrorMessage(props: ErrorMessageProps) {
   return (
-    <p className="text-xs font-normal text-left text-gray-700 bg-yellow-300 flex justify-center items-center rounded-full p-1">
-      <IoAlertCircleSharp className="text-base mr-2" />
-      {props.message}
-    </p>
+    <div
+      role={'dialog'}
+      className="bg-white flex justify-center items-center rounded-full p-1"
+    >
+      <IoAlertCircleSharp
+        role={'img'}
+        className="text-base mr-2 text-warning"
+      />
+      <p className="text-black-light">{props.message}</p>
+    </div>
   );
 }
 

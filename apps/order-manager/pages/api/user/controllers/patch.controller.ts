@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import prisma from '@order-manager/prisma/prisma';
+import prisma from './../../../../prisma/prisma';
 
 export const patchUserById = async (
   res: NextApiResponse,

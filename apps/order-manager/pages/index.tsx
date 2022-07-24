@@ -1,21 +1,19 @@
-import { ProfileCard, OrdersList, LoginCard } from '../components';
-import { useSession, signOut } from 'next-auth/react';
+import { PromoCarousel, PageHeader, OrdersList } from '../components';
+import { IoHomeOutline } from 'react-icons/io5';
 
 /* eslint-disable-next-line */
 export interface ProfileProps {}
 
 export function Profile(props: ProfileProps) {
-  const { data } = useSession();
   return (
-    <section className="container p-4 min-h-[calc(100vh-4rem)] grid grid-cols-1 gap-4 content-start">
-      {!data ? (
-        <LoginCard />
-      ) : (
-        <>
-          <ProfileCard />
-          <OrdersList />
-        </>
-      )}
+    <section className="grid gap-4">
+      <PageHeader
+        icon={<IoHomeOutline className="text-2xl" />}
+        title="Mi inicio"
+        description="Aquí podrás ver la lista de tus pedidos"
+      />
+      <PromoCarousel />
+      <OrdersList />
     </section>
   );
 }

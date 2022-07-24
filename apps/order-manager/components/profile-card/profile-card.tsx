@@ -1,27 +1,25 @@
 import Image from 'next/image';
 import {
-  IoMailOutline,
-  IoLocationOutline,
-  IoPhonePortraitOutline,
   IoExitOutline,
   IoAlertCircleOutline,
   IoSaveOutline,
+  IoLocationOutline,
+  IoPhonePortraitOutline,
 } from 'react-icons/io5';
 import { useForm } from 'react-hook-form';
-import { useSession, signOut } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 import {
-  useFetchUserByIdQuery,
+  useFetchUserQuery,
   useUpdateUserMutation,
 } from './../../redux/features/user/user-api-slice';
-import ErrorMessage from '../error-message/error-message';
+import { ErrorMessage, Spinner } from '../';
 
 /* eslint-disable-next-line */
 export interface ProfileCardProps {}
 
 export function ProfileCard(props: ProfileCardProps) {
   // User session
-  const id: string = useSession().data?.user?.id as string;
-  const { data, isLoading, isError, isSuccess } = useFetchUserByIdQuery(id);
+  const { data, isLoading, isError, isSuccess } = useFetchUserQuery('');
   const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation();
 
   const {
@@ -32,7 +30,6 @@ export function ProfileCard(props: ProfileCardProps) {
 
   async function submitHandler(values) {
     const profile = {
-      id: id,
       address: values.address,
       phone: values.phone,
     };
@@ -41,25 +38,19 @@ export function ProfileCard(props: ProfileCardProps) {
   }
 
   return (
-    <div className="bg-white shadow rounded-lg p-4 flex justify-center items-start gap-4">
-      {isError && (
-        <p className="text-sm font-semibold text-center text-gray-600 flex justify-center items-center">
-          <IoAlertCircleOutline className="text-base mr-1 text-red-600" />
-          ¡Ups! Ha ocurrido un error
-        </p>
-      )}
-      {/* Loading state */}
+    <div className="bg-white shadow-2xl shadow-black-light/5 rounded-3xl p-4 grid gap-4">
+      {isError && <ErrorMessage message="¡Ups! Ha ocurrido un error" />}
       {isLoading && (
         <div
           role="status"
           className="animate-pulse flex justify-center flex-wrap gap-1"
         >
-          <div className="h-32 w-32 p-2 rounded-full shadow bg-gray-300"></div>
-          <div className="rounded-full bg-gray-300 w-full mb-4 mt-2 h-[34px]"></div>
-          <div className="h-7 rounded-full bg-gray-300 w-full"></div>
-          <div className="h-5 rounded-full bg-gray-300 w-full"></div>
-          <div className="h-5 rounded-full bg-gray-300 w-full"></div>
-          <div className="h-5 rounded-full bg-gray-300 w-full"></div>
+          <div className="h-32 w-32 p-2 rounded-full shadow bg-black-light/30"></div>
+          <div className="rounded-full bg-black-light/30 w-full mb-4 mt-2 h-[34px]"></div>
+          <div className="h-7 rounded-full bg-black-light/30 w-full"></div>
+          <div className="h-5 rounded-full bg-black-light/30 w-full"></div>
+          <div className="h-5 rounded-full bg-black-light/30 w-full"></div>
+          <div className="h-5 rounded-full bg-black-light/30 w-full"></div>
           <span className="sr-only">Loading...</span>
         </div>
       )}
@@ -76,54 +67,55 @@ export function ProfileCard(props: ProfileCardProps) {
             />
             <button
               onClick={() => signOut()}
-              className=" inline-flex gap-2 items-center relative px-4 border rounded-full mb-4 mt-2"
+              className=" inline-flex gap-2 items-center relative px-4 rounded-full mb-4 mt-2 bg-danger text-white"
             >
               <IoExitOutline className="text-base block flex-grow-0 flex-shrink-0 h-8" />
               <span className="text-sm">Cerrar Sesión</span>
             </button>
-            <p className="text-lg text-rose-700 font-normal">
-              {data.data.name}
-            </p>
-            <p className="text-sm font-semibold text-center text-gray-600 flex justify-center items-center">
-              <IoMailOutline className="text-base mr-1" />
+            <p className="text-xl text-black font-normal">{data.data.name}</p>
+            <p className="text-lg text-center text-black-light">
               {data.data.email}
             </p>
-            <p className="text-sm font-semibold text-center text-gray-600 flex justify-center items-center">
-              <IoLocationOutline className="text-base mr-1" />
-              {data.data.address ?? 'No hay domicilio'}
+            <p className="text-lg text-center text-black-light inline-flex gap-2 items-center">
+              <IoLocationOutline className="text-xl block flex-grow-0 flex-shrink-0 h-8" />
+              {data.data.address ?? 'No hay un domicilio registrado'}
             </p>
-            <p className="text-sm font-semibold text-center text-gray-600 flex justify-center items-center">
-              <IoPhonePortraitOutline className="text-base mr-1" />
+            <p className="text-lg text-center text-black-light inline-flex gap-2 items-center">
+              <IoPhonePortraitOutline className="text-xl block flex-grow-0 flex-shrink-0 h-8" />
               {data.data.phone ?? 'No hay un número registrado'}
             </p>
           </div>
           {!data?.data.phone || !data?.data.address ? (
-            <form onSubmit={handleSubmit(submitHandler)} className="grid gap-2">
-              <hr />
+            <form
+              onSubmit={handleSubmit(submitHandler)}
+              className="grid gap-2 mt-2 relative"
+            >
               <ErrorMessage message="Hacen falta algunos datos" />
+              {isUpdating && <Spinner />}
               {!data?.data.address && (
                 <input
                   type="text"
                   placeholder="Domicilio"
-                  className="w-full rounded-lg p-2 text-sm bg-gray-100 border border-transparent appearance-none rounded-tg placeholder-gray-400"
+                  className="w-full rounded-lg py-3 px-4 bg-background appearance-none rounded-tg placeholder:text-black-light"
                   {...register('address')}
                 />
               )}
               {!data?.data.phone && (
                 <input
-                  type="text"
+                  type="tel"
+                  inputMode="decimal"
+                  autoComplete="tel"
                   placeholder="Número de teléfono"
-                  className="w-full rounded-lg p-2 text-sm bg-gray-100 border border-transparent appearance-none rounded-tg placeholder-gray-400"
+                  className="w-full rounded-lg py-3 px-4 bg-background appearance-none rounded-tg placeholder:text-black-light"
                   {...register('phone')}
                 />
               )}
               {!data?.data.phone || !data?.data.address ? (
                 <button
-                  className="mx-auto max-w-max inline-flex gap-2 items-center relative px-4 py-2 border rounded-full shadow-lg bg-rose-500 text-white"
+                  className="w-full gap-2 relative py-3 px-4 rounded-full shadow-lg bg-apricot text-white text-center"
                   type="submit"
                 >
-                  <span className="text-sm">Actualizar mis datos</span>
-                  <IoSaveOutline />
+                  Actualizar mis datos
                 </button>
               ) : null}
             </form>

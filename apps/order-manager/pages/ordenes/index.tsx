@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Cloudinary } from '../../components';
+import { Cloudinary } from './../../components';
 import { IoBagCheckOutline } from 'react-icons/io5';
 
 export function Index() {
@@ -36,9 +36,10 @@ export function Index() {
       phone: data.user.phone,
       store: values.store,
       status: 'No pedido',
+      coupon: values.coupon,
     };
 
-    await fetch('/api/order', {
+    await fetch('/api/orders', {
       method: 'POST',
       body: JSON.stringify(orderObject),
       headers: {
@@ -85,7 +86,7 @@ export function Index() {
               <span className="rounded-full border w-4 h-4 inline-block border-rose-200  text-center leading-4 mr-2">
                 1
               </span>
-              Selecciona tus imágenes
+              🖼 Selecciona tus imágenes
             </label>
             <Cloudinary imageHandler={imageHandler} />
             <div className="mt-2 flex gap-4 flex-wrap rounded border border-solid p-2 w-full">
@@ -115,7 +116,7 @@ export function Index() {
               <span className="rounded-full border w-4 h-4 inline-block border-rose-200  text-center leading-4 mr-2">
                 2
               </span>
-              Selecciona la tienda
+              🏪 Selecciona la tienda
             </label>
             <select
               {...register('store')}
@@ -133,7 +134,7 @@ export function Index() {
               <span className="rounded-full border w-4 h-4 inline-block border-rose-200  text-center leading-4 mr-2">
                 3
               </span>
-              Agrega tus comentarios
+              📃 Agrega tus comentarios
             </label>
             <textarea
               placeholder="Comentarios"
@@ -146,7 +147,7 @@ export function Index() {
               <span className="rounded-full border w-4 h-4 inline-block border-rose-200  text-center leading-4 mr-2">
                 4
               </span>
-              Agrega el costo de tu pedido
+              💵 Agrega el costo de tu pedido
             </label>
             <input
               type="number"
@@ -155,6 +156,20 @@ export function Index() {
               placeholder="$00.00"
               className="w-full rounded-lg p-2 text-sm bg-gray-100 border border-transparent appearance-none rounded-tg placeholder-gray-400"
               {...register('cost')}
+            />
+          </section>
+          <section className="col-span-1 flex flex-wrap gap-2">
+            <label htmlFor="store" className="text-xs text-gray-600">
+              <span className="rounded-full border w-4 h-4 inline-block border-rose-200  text-center leading-4 mr-2">
+                4
+              </span>
+              🎫 ¿Tienes un código de promoción?
+            </label>
+            <input
+              type="text"
+              placeholder="COUPON"
+              className="w-full rounded-lg p-2 text-sm bg-gray-100 border border-transparent appearance-none rounded-tg placeholder-gray-400"
+              {...register('coupon')}
             />
           </section>
           <label htmlFor="store" className="text-xs text-gray-600">

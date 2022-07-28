@@ -1,6 +1,6 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { Navigation, TopBar } from '../index';
+import { Navigation, TopBar, LoginCard } from '../';
 import Seo from '../seo/seo';
 import Spinner from '../spinner/spinner';
 /* eslint-disable-next-line */
@@ -19,7 +19,7 @@ export function Layout(props: LayoutProps) {
       <>
         <Seo />
         <main className="min-h-screen bg-background relative">
-          {props.children}
+          <LoginCard />
         </main>
       </>
     );

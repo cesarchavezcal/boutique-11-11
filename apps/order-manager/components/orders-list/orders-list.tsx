@@ -1,5 +1,3 @@
-import Image from 'next/image';
-import { useSession } from 'next-auth/react';
 import ErrorMessage from '../error-message/error-message';
 import PageSubheader from '../page-subheader/page-subheader';
 import OrderListCard from '../order-list-card/order-list-card';
@@ -26,7 +24,7 @@ export function OrdersList(props: OrdersListProps) {
       <div className="grid gap-2" role={'list'}>
         {isLoading && <OrderListCardSkeleton />}
         {isError && <ErrorMessage message="¡Ups! ha ocurrido un error" />}
-        {!isLoading && orders?.data?.length > 0 ? (
+        {!isLoading && orders?.data.length > 0 ? (
           <>
             {orders?.data.map((order, i) => (
               <OrderListCard

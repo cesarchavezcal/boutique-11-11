@@ -42,7 +42,7 @@ export function OrderListCard(props: OrderListCardProps) {
                 <small className="text-sm text-black-light font-normal">
                   Total:{' '}
                 </small>
-                ${props.order?.cost}
+                ${props.order?.cost ?? '00.00'}
               </p>
               <span className="py-[0.1rem] px-1 text-sm bg-warning rounded">
                 {props.order?.status}

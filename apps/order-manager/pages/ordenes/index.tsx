@@ -3,7 +3,11 @@ import { useRouter } from 'next/router';
 import { useState, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { PageHeader, Spinner, ErrorMessage } from './../../components';
-import { IoBagCheckOutline, IoBagOutline } from 'react-icons/io5';
+import {
+  IoBagCheckOutline,
+  IoBagOutline,
+  IoTrashOutline,
+} from 'react-icons/io5';
 import Script from 'next/script';
 import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
@@ -59,7 +63,7 @@ export function Index() {
           );
         });
     });
-    console.log(values);
+
     axios.all(uploadImages).then((uploadedImages) => {
       const orderObject = {
         cost: parseInt(values.cost),
@@ -88,6 +92,18 @@ export function Index() {
     });
   }
 
+  /**
+   * Delete the selected image
+   * @param id
+   */
+  function handleDeleteClick(id) {
+    const removeItem = images.filter((image, i) => {
+      return i !== id;
+    });
+
+    setImages(removeItem);
+  }
+
   const onDrop = useCallback((acceptedFiles, rejectedFiled) => {
     acceptedFiles.forEach((file) => {
       const base64Reader = new FileReader();
@@ -102,7 +118,7 @@ export function Index() {
       };
     });
   }, []);
-  // Cloudinary Hook
+  // Cloudinary Hooks
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
@@ -112,8 +128,8 @@ export function Index() {
 
   return (
     <>
-      <section className="grid gap-4 relative">
-        {isSubmitting && <Spinner />}
+      {isSubmitting && <Spinner />}
+      <section className="grid gap-4">
         <PageHeader
           title="Crear Orden"
           description="Aquí podrás crear tu orden"
@@ -131,7 +147,9 @@ export function Index() {
               🖼 Selecciona tus imágenes
             </label>
             <div
-              className="w-full bg-apricot-light border-dashed border border-apricot p-4 text-center text-dark rounded-3xl"
+              className={`w-full border-dashed bg-background border border-apricot/20 p-4 text-center text-black-light rounded-3xl ${
+                imageError && 'border-danger border-double border-2'
+              }`}
               {...getRootProps()}
             >
               <input {...getInputProps()} />
@@ -145,12 +163,22 @@ export function Index() {
               <div className="grid grid-cols-2 gap-1">
                 {images.map((image, i) => {
                   return (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={image.base64 as string}
-                      key={i}
-                      alt="Imagen de pedido"
-                    />
+                    <div key={i} className="relative">
+                      <img
+                        src={image.base64 as string}
+                        alt="Imagen de pedido"
+                      />
+                      <button
+                        className="absolute bottom-0 left-0 bg-danger text-light py-1 px-3 rounded-full flex items-center gap-1 text-white text-sm"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleDeleteClick(i);
+                        }}
+                      >
+                        <IoTrashOutline />
+                        Eliminar foto
+                      </button>
+                    </div>
                   );
                 })}
               </div>
@@ -165,7 +193,7 @@ export function Index() {
             </label>
             <select
               {...register('store')}
-              className="w-full rounded-lg py-3 px-4 bg-background appearance-none rounded-tg placeholder:text-black-light"
+              className="w-full rounded-lg py-3 px-4 bg-background appearance-none rounded-tg placeholder:text-black-light text-apricot-dark"
             >
               <option value="Shein">Shein</option>
               <option value="Flexi">Flexi</option>
@@ -181,7 +209,7 @@ export function Index() {
             </label>
             <textarea
               placeholder="Comentarios"
-              className="w-full rounded-lg py-3 px-4 bg-background appearance-none rounded-tg placeholder:text-black-light"
+              className="w-full rounded-lg py-3 px-4 bg-background appearance-none rounded-tg placeholder:text-black-light text-apricot-dark"
               {...register('comments')}
             />
           </section>
@@ -197,7 +225,7 @@ export function Index() {
               inputMode="decimal"
               autoComplete="off"
               placeholder="$00.00"
-              className="w-full rounded-lg py-3 px-4 bg-background appearance-none rounded-tg placeholder:text-black-light"
+              className="w-full rounded-lg py-3 px-4 bg-background appearance-none rounded-tg placeholder:text-black-light text-apricot-dark"
               {...register('cost')}
             />
           </section>
@@ -211,7 +239,7 @@ export function Index() {
             <input
               type="text"
               placeholder="Código de cupón"
-              className="w-full rounded-lg py-3 px-4 bg-background appearance-none rounded-tg placeholder:text-black-light"
+              className="w-full rounded-lg py-3 px-4 bg-background appearance-none rounded-tg placeholder:text-black-light text-apricot-dark"
               {...register('coupon')}
             />
           </section>

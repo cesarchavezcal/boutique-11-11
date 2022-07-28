@@ -76,11 +76,15 @@ export function ProfileCard(props: ProfileCardProps) {
             </p>
             <p className="text-lg text-center text-black-light inline-flex gap-2 items-center">
               <IoLocationOutline className="text-xl block flex-grow-0 flex-shrink-0 h-8" />
-              {data.data.address ?? 'No hay un domicilio registrado'}
+              {data.data.address
+                ? data.data.address
+                : 'No hay un domicilio registrado'}
             </p>
             <p className="text-lg text-center text-black-light inline-flex gap-2 items-center">
               <IoPhonePortraitOutline className="text-xl block flex-grow-0 flex-shrink-0 h-8" />
-              {data.data.phone ?? 'No hay un número registrado'}
+              {data.data.phone
+                ? data.data.phone
+                : 'No hay un número registrado'}
             </p>
           </div>
           {!data?.data.phone || !data?.data.address ? (

@@ -54,9 +54,9 @@ const Order = () => {
             </p>
             <small>Costo</small>
             <p className="text-base text-black-light inline-flex items-center font-mono">
-              Total: ${order?.data[0].cost}
+              Total: ${order?.data[0].cost ?? '00.00'}
               <br />
-              Pagado: ${order?.data[0].payment ? order?.data[0].payment : '00'}
+              Pagado: ${order?.data[0].payment ?? '00.00'}
             </p>
             <small>Cupón</small>
             <p className="text-base text-black-light inline-flex items-center">

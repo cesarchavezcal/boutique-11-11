@@ -1,8 +1,6 @@
 import Image from 'next/image';
 import {
   IoExitOutline,
-  IoAlertCircleOutline,
-  IoSaveOutline,
   IoLocationOutline,
   IoPhonePortraitOutline,
 } from 'react-icons/io5';

@@ -21,7 +21,7 @@ export function OrderListCard(props: OrderListCardProps) {
             <figure className="bg-apricot w-24 h-full flex-shrink-0 rounded-3xl relative">
               <Image
                 src={props.order?.images[0]}
-                className="w-full h-full rounded-full aspect-square border border-gray-400"
+                className="w-full h-full rounded-3xl aspect-square border border-gray-400"
                 layout="fill"
                 alt="Imagen de pedido"
                 objectFit={'cover'}

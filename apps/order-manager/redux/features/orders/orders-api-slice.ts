@@ -23,7 +23,7 @@ export const ordersApiSlice = createApi({
               ]
             : ['Order'],
       }),
-      fetchOrderById: builder.query<{ data: OrderT }, string>({
+      fetchOrderById: builder.query<{ data?: OrderT[] }, string>({
         query(id) {
           return `/${id}`;
         },

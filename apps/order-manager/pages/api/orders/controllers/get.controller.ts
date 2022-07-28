@@ -53,7 +53,6 @@ export const getOrderById = async (
         },
       },
     });
-
     if (data) {
       res.status(200).json({ data });
     } else {

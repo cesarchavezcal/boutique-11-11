@@ -1,4 +1,3 @@
-export * from './cloudinary/cloudinary';
 export * from './error-message/error-message';
 export * from './layout/layout';
 export * from './login-card/login-card';

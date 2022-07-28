@@ -28,7 +28,9 @@ module.exports = {
       success: '#22c55e',
       background: '#faf3f7',
     },
-    extend: {},
+    extend: {
+      gridTemplateAreas: 'none',
+    },
   },
   plugins: [],
 };

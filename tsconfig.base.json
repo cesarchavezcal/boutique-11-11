@@ -18,8 +18,8 @@
       "@boutique-11-11/models": ["libs/models/src/index.ts"],
       "@order-manager/*": ["apps/order-manager/*"],
       "@order-manager/components/*": ["components/*"],
-      "@order-manager/redux/*": ["redux/*"],
-      "@order-manager/prisma/*": ["prisma/*"]
+      "@order-manager/prisma/*": ["prisma/*"],
+      "@order-manager/redux/*": ["redux/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

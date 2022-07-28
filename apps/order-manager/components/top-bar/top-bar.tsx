@@ -9,22 +9,22 @@ export function TopBar(props: TopBarProps) {
   const { data } = useSession();
 
   return (
-    <section className="sticky top-0 p-4 left-0 backdrop-blur-md bg-white/70 z-50">
+    <section className="sticky top-0 left-0 z-50 bg-white/70 p-4 backdrop-blur-md">
       <section className="flex justify-between">
         <Link href={'/perfil'}>
-          <a className="flex gap-2 items-center">
+          <a className="flex items-center gap-2">
             <Image
               src={data.user?.image}
               alt={data.user?.name}
               width={48}
               height={48}
-              className="rounded-full aspect-square"
+              className="aspect-square rounded-full"
             />
-            <section className="flex-grow flex items-center flex-wrap">
-              <p className="text-base text-black block w-full leading-none">
+            <section className="flex flex-grow flex-wrap items-center">
+              <p className="block w-full text-base leading-none text-black">
                 {data.user?.name}
               </p>
-              <small className="text-base text-apricot">Ver mi perfil</small>
+              <small className="text-apricot text-base">Ver mi perfil</small>
             </section>
           </a>
         </Link>

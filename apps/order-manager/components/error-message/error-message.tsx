@@ -9,11 +9,11 @@ export function ErrorMessage(props: ErrorMessageProps) {
   return (
     <div
       role={'dialog'}
-      className="bg-white flex justify-center items-center rounded-full p-1"
+      className="flex items-center justify-center rounded-full bg-white p-1"
     >
       <IoAlertCircleSharp
         role={'img'}
-        className="text-base mr-2 text-warning"
+        className="text-warning mr-2 text-base"
       />
       <p className="text-black-light">{props.message}</p>
     </div>

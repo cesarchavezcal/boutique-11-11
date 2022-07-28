@@ -3,10 +3,10 @@ export interface SpinnerProps {}
 
 export function Spinner(props: SpinnerProps) {
   return (
-    <div className="absolute inset-0 grid h-full w-full place-content-center z-50 bg-apricot/50">
-      <div className="p-4 bg-white rounded shadow-2xl shadow-black-light/5">
+    <div className="bg-apricot/50 absolute inset-0 z-50 grid h-full w-full place-content-center">
+      <div className="shadow-black-light/5 rounded bg-white p-4 shadow-2xl">
         <svg
-          className="h-8 w-8 animate-spin text-apricot-dark"
+          className="text-apricot-dark h-8 w-8 animate-spin"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"

@@ -18,7 +18,7 @@ export function Layout(props: LayoutProps) {
     return (
       <>
         <Seo />
-        <main className="min-h-screen bg-background relative">
+        <main className="bg-background relative min-h-screen">
           <LoginCard />
         </main>
       </>
@@ -27,14 +27,14 @@ export function Layout(props: LayoutProps) {
     return (
       <>
         <Seo />
-        <main className="bg-background min-h-screen relative pb-[4rem]">
+        <main className="bg-background relative min-h-screen pb-[4rem]">
           {pathname !== '/perfil' && (
             <>
               <Navigation />
               <TopBar />
             </>
           )}
-          <section className="p-4 container mx-auto">{props.children}</section>
+          <section className="container mx-auto p-4">{props.children}</section>
         </main>
       </>
     );

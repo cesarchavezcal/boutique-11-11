@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useState, useCallback } from 'react';
@@ -25,12 +26,7 @@ export function Index() {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [imageError, setImageError] = useState<boolean>(false);
 
-  const {
-    handleSubmit,
-    register,
-    reset,
-    formState: { errors },
-  } = useForm();
+  const { handleSubmit, register } = useForm();
 
   async function submitHandler(values) {
     setIsSubmitting(true);
@@ -137,18 +133,18 @@ export function Index() {
         />
         <form
           onSubmit={handleSubmit(submitHandler)}
-          className="grid grid-cols-1 gap-5 bg-white p-4 rounded-3xl"
+          className="grid grid-cols-1 gap-5 rounded-3xl bg-white p-4"
         >
           <section className="col-span-1 flex flex-wrap gap-2">
             <label htmlFor="images" className="text-xs text-gray-600">
-              <span className="rounded-full border w-4 h-4 inline-block border-rose-200  text-center leading-4 mr-2">
+              <span className="mr-2 inline-block h-4 w-4 rounded-full border  border-rose-200 text-center leading-4">
                 1
               </span>
               🖼 Selecciona tus imágenes
             </label>
             <div
-              className={`w-full border-dashed bg-background border border-apricot/20 p-4 text-center text-black-light rounded-3xl ${
-                imageError && 'border-danger border-double border-2'
+              className={`bg-background border-apricot/20 text-black-light w-full rounded-3xl border border-dashed p-4 text-center ${
+                imageError && 'border-danger border-2 border-double'
               }`}
               {...getRootProps()}
             >
@@ -169,7 +165,7 @@ export function Index() {
                         alt="Imagen de pedido"
                       />
                       <button
-                        className="absolute bottom-0 left-0 bg-danger text-light py-1 px-3 rounded-full flex items-center gap-1 text-white text-sm"
+                        className="bg-danger text-light absolute bottom-0 left-0 flex items-center gap-1 rounded-full py-1 px-3 text-sm text-white"
                         onClick={(e) => {
                           e.preventDefault();
                           handleDeleteClick(i);
@@ -186,14 +182,14 @@ export function Index() {
           </section>
           <section className="col-span-1 flex flex-wrap gap-2">
             <label htmlFor="store" className="text-xs text-gray-600">
-              <span className="rounded-full border w-4 h-4 inline-block border-rose-200  text-center leading-4 mr-2">
+              <span className="mr-2 inline-block h-4 w-4 rounded-full border  border-rose-200 text-center leading-4">
                 2
               </span>
               🏪 Selecciona la tienda
             </label>
             <select
               {...register('store')}
-              className="w-full rounded-lg py-3 px-4 bg-background appearance-none rounded-tg placeholder:text-black-light text-apricot-dark"
+              className="bg-background rounded-tg placeholder:text-black-light text-apricot-dark w-full appearance-none rounded-lg py-3 px-4"
             >
               <option value="Shein">Shein</option>
               <option value="Flexi">Flexi</option>
@@ -202,20 +198,20 @@ export function Index() {
           </section>
           <section className="col-span-1 flex flex-wrap gap-2">
             <label htmlFor="store" className="text-xs text-gray-600">
-              <span className="rounded-full border w-4 h-4 inline-block border-rose-200  text-center leading-4 mr-2">
+              <span className="mr-2 inline-block h-4 w-4 rounded-full border  border-rose-200 text-center leading-4">
                 3
               </span>
               📃 Agrega tus comentarios
             </label>
             <textarea
               placeholder="Comentarios"
-              className="w-full rounded-lg py-3 px-4 bg-background appearance-none rounded-tg placeholder:text-black-light text-apricot-dark"
+              className="bg-background rounded-tg placeholder:text-black-light text-apricot-dark w-full appearance-none rounded-lg py-3 px-4"
               {...register('comments')}
             />
           </section>
           <section className="col-span-1 flex flex-wrap gap-2">
             <label htmlFor="store" className="text-xs text-gray-600">
-              <span className="rounded-full border w-4 h-4 inline-block border-rose-200  text-center leading-4 mr-2">
+              <span className="mr-2 inline-block h-4 w-4 rounded-full border  border-rose-200 text-center leading-4">
                 4
               </span>
               💵 Agrega el costo de tu pedido
@@ -225,13 +221,13 @@ export function Index() {
               inputMode="decimal"
               autoComplete="off"
               placeholder="$00.00"
-              className="w-full rounded-lg py-3 px-4 bg-background appearance-none rounded-tg placeholder:text-black-light text-apricot-dark"
+              className="bg-background rounded-tg placeholder:text-black-light text-apricot-dark w-full appearance-none rounded-lg py-3 px-4"
               {...register('cost')}
             />
           </section>
           <section className="col-span-1 flex flex-wrap gap-2">
             <label htmlFor="store" className="text-xs text-gray-600">
-              <span className="rounded-full border w-4 h-4 inline-block border-rose-200  text-center leading-4 mr-2">
+              <span className="mr-2 inline-block h-4 w-4 rounded-full border  border-rose-200 text-center leading-4">
                 4
               </span>
               🎫 ¿Tienes un código de promoción?
@@ -239,7 +235,7 @@ export function Index() {
             <input
               type="text"
               placeholder="Código de cupón"
-              className="w-full rounded-lg py-3 px-4 bg-background appearance-none rounded-tg placeholder:text-black-light text-apricot-dark"
+              className="bg-background rounded-tg placeholder:text-black-light text-apricot-dark w-full appearance-none rounded-lg py-3 px-4"
               {...register('coupon')}
             />
           </section>
@@ -248,7 +244,7 @@ export function Index() {
           </label>
           <button
             type="submit"
-            className="inline-flex justify-center items-center w-full gap-2 relative py-3 px-4 rounded-full shadow-lg bg-apricot text-white text-center"
+            className="bg-apricot relative inline-flex w-full items-center justify-center gap-2 rounded-full py-3 px-4 text-center text-white shadow-lg"
           >
             ¡Haz mi pedido!
             <IoBagCheckOutline />

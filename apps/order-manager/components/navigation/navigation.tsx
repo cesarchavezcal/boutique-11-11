@@ -14,34 +14,34 @@ export function Navigation(props: NavigationProps) {
   const activeLink = 'text-apricot';
 
   return (
-    <nav className="bg-white w-full fixed inset-y bottom-0 left-0 flex justify-around rounded-t-3xl z-50">
+    <nav className="inset-y fixed bottom-0 left-0 z-50 flex w-full justify-around rounded-t-3xl bg-white">
       <Link href={'/'}>
         <a
-          className={`h-16 w-[calc(100%/3)] grid gap-1 place-content-center ${
+          className={`grid h-16 w-[calc(100%/3)] place-content-center gap-1 ${
             router.pathname === '/' ? activeLink : 'text-black-light'
           }`}
         >
-          <IoHomeOutline className="text-2xl  mx-auto" />
+          <IoHomeOutline className="mx-auto  text-2xl" />
           <small>Inicio</small>
         </a>
       </Link>
       <Link href={'/ordenes'}>
         <a
-          className={`h-16 px-2 w-[calc(100%/3)] grid gap-1 place-content-center bg-apricot text-white rounded ${
+          className={`bg-apricot grid h-16 w-[calc(100%/3)] place-content-center gap-1 rounded px-2 text-white ${
             router.pathname === '/ordenes' ? 'bg-apricot' : 'bg-apricot-light'
           }`}
         >
-          <IoBagHandleOutline className="text-2xl  mx-auto" />
+          <IoBagHandleOutline className="mx-auto  text-2xl" />
           <small>Hacer Orden</small>
         </a>
       </Link>
       <Link href={'/ayuda'}>
         <a
-          className={`h-16 w-[calc(100%/3)] grid gap-1 place-content-center ${
+          className={`grid h-16 w-[calc(100%/3)] place-content-center gap-1 ${
             router.pathname === '/ayuda' ? activeLink : 'text-black-light'
           }`}
         >
-          <IoHelpCircleOutline className="text-2xl  mx-auto" />
+          <IoHelpCircleOutline className="mx-auto  text-2xl" />
           <small>Ayuda</small>
         </a>
       </Link>

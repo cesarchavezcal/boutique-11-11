@@ -1,9 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { unstable_getServerSession } from 'next-auth';
 import { authOptions } from '../auth/[...nextauth]';
-import { Session } from 'next-auth/core/types';
-import prisma from '../../../prisma/prisma';
-import { UserT } from '@boutique-11-11/models';
 import { createOrder } from './controllers/post.controller';
 import { getOrdersByUser } from './controllers/get.controller';
 

@@ -1,4 +1,4 @@
-import type { NextComponentType, NextPageContext, NextPage } from 'next';
+import type { NextComponentType, NextPageContext } from 'next';
 import type { Session } from 'next-auth';
 import type { Router } from 'next/router';
 import { DehydratedState } from 'react-query/types/core/hydration';

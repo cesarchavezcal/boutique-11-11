@@ -1,5 +1,3 @@
-import styles from './page-header.module.css';
-
 /* eslint-disable-next-line */
 export interface PageHeaderProps {
   icon: React.ReactElement;
@@ -10,11 +8,11 @@ export interface PageHeaderProps {
 export function PageHeader(props: PageHeaderProps) {
   return (
     <section className="grid gap-2">
-      <h1 className="text-3xl text-black font-semibold inline-flex items-center gap-2">
-        <i className="bg-apricot-light p-1 rounded text-white">{props.icon}</i>
+      <h1 className="inline-flex items-center gap-2 text-3xl font-semibold text-black">
+        <i className="bg-apricot-light rounded p-1 text-white">{props.icon}</i>
         {props.title}
       </h1>
-      <p className="text-base text-black-light">{props.description}</p>
+      <p className="text-black-light text-base">{props.description}</p>
     </section>
   );
 }

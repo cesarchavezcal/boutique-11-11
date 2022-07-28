@@ -30,7 +30,7 @@ export function Index() {
 
   async function submitHandler(values) {
     setIsSubmitting(true);
-
+ 
     if (images.length === 0) {
       setImageError(true);
       setIsSubmitting(false);

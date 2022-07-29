@@ -24,7 +24,7 @@ export function Layout(props: LayoutProps) {
         <Seo />
         <main
           style={style}
-          className="bg-background bg-[200px] relative min-h-screen bg-[image:var(--hero-bg)] bg-[length:100%] bg-fixed bg-right-bottom bg-no-repeat"
+          className="bg-background relative min-h-screen bg-[image:var(--hero-bg)] bg-contain bg-fixed bg-right-bottom bg-no-repeat"
         >
           <LoginCard />
         </main>
@@ -36,7 +36,7 @@ export function Layout(props: LayoutProps) {
         <Seo />
         <main
           style={style}
-          className="bg-background relative min-h-screen bg-[image:var(--hero-bg)] bg-[length:100%] bg-fixed bg-right-bottom bg-no-repeat pb-[4rem]"
+          className="bg-background relative min-h-screen bg-[image:var(--hero-bg)] bg-contain bg-fixed bg-right-bottom bg-no-repeat pb-[4rem]"
         >
           {pathname !== '/perfil' && (
             <>

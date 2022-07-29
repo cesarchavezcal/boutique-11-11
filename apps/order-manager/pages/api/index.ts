@@ -7,7 +7,8 @@ export default async function handler(
   switch (req.method) {
     case 'GET':
       return res.status(200).json({
-        message: 'Hello',
+        message: 'API for Boutique 11:11',
+        version: '1.0.0',
       });
   }
 }

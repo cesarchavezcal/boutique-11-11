@@ -9,6 +9,10 @@ export interface LayoutProps {
 }
 
 export function Layout(props: LayoutProps) {
+  const style = {
+    '--hero-bg': 'url(/images/bg.png)',
+  } as React.CSSProperties;
+
   const { status } = useSession();
   const { pathname } = useRouter();
 
@@ -18,7 +22,10 @@ export function Layout(props: LayoutProps) {
     return (
       <>
         <Seo />
-        <main className="bg-background relative min-h-screen">
+        <main
+          style={style}
+          className="bg-background bg-[200px] relative min-h-screen bg-[image:var(--hero-bg)] bg-[length:100%] bg-fixed bg-right-bottom bg-no-repeat"
+        >
           <LoginCard />
         </main>
       </>
@@ -27,7 +34,10 @@ export function Layout(props: LayoutProps) {
     return (
       <>
         <Seo />
-        <main className="bg-background relative min-h-screen pb-[4rem]">
+        <main
+          style={style}
+          className="bg-background relative min-h-screen bg-[image:var(--hero-bg)] bg-[length:100%] bg-fixed bg-right-bottom bg-no-repeat pb-[4rem]"
+        >
           {pathname !== '/perfil' && (
             <>
               <Navigation />

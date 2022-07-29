@@ -17,7 +17,7 @@ export function LoginCard(props: LoginCardProps) {
             priority
           ></Image>
         </figure>
-        <article className="flex flex-wrap justify-center gap-2">
+        <article className="grid justify-center gap-2">
           <h1 className="text-center text-2xl font-medium text-black">
             ¡Bienvenida!
           </h1>
@@ -26,7 +26,7 @@ export function LoginCard(props: LoginCardProps) {
           </p>
           <button
             onClick={() => signIn('facebook')}
-            className="relative mt-2 inline-flex items-center gap-2 rounded-full border bg-[#3578E5] px-4 text-white"
+            className="relative mx-auto mt-2 inline-flex w-max items-center gap-2 rounded-full border bg-[#3578E5] px-4 text-white"
           >
             <FaFacebook className="block h-10 flex-shrink-0 flex-grow-0 text-2xl text-white" />
             <span className="text-sm">Iniciar Sesión</span>

@@ -58,15 +58,18 @@ model VerificationToken {
 }
 
 model Order {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   address   String
-  comments  String?
-  createdAt DateTime @default(now())
-  phone     String
-  store     String
-  updatedAt DateTime @updatedAt
   client    User?    @relation(fields: [clientId], references: [id])
   clientId  String?
+  comments  String?
+  cost      Int?
+  coupon    String?
+  createdAt DateTime @default(now())
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   images    String[]
+  payment   Int?
+  phone     String
   status    String?
+  store     String
+  updatedAt DateTime @updatedAt
 }

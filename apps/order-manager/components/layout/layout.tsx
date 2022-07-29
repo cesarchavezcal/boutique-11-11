@@ -1,27 +1,44 @@
-import styles from './layout.module.css';
-import Head from 'next/head';
-import Navigation from '../navigation/navigation';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import { Navigation, TopBar, LoginCard } from '../';
+import Seo from '../seo/seo';
+import Spinner from '../spinner/spinner';
 /* eslint-disable-next-line */
 export interface LayoutProps {
   children: React.ReactElement;
 }
 
 export function Layout(props: LayoutProps) {
-  return (
-    <>
-      <Head>
-        <title>11:11 Boutique</title>
-        <link
-          rel="icon"
-          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💄</text></svg>"
-        />
-      </Head>
-      <main className="min-h-screen bg-gray-100 relative">
-        <Navigation />
-        {props.children}
-      </main>
-    </>
-  );
+  const { status } = useSession();
+  const { pathname } = useRouter();
+
+  if (status === 'loading') {
+    return <Spinner />;
+  } else if (status === 'unauthenticated') {
+    return (
+      <>
+        <Seo />
+        <main className="bg-background relative min-h-screen">
+          <LoginCard />
+        </main>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Seo />
+        <main className="bg-background relative min-h-screen pb-[4rem]">
+          {pathname !== '/perfil' && (
+            <>
+              <Navigation />
+              <TopBar />
+            </>
+          )}
+          <section className="container mx-auto p-4">{props.children}</section>
+        </main>
+      </>
+    );
+  }
 }
 
 export default Layout;

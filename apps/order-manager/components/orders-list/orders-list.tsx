@@ -1,90 +1,42 @@
-import Image from 'next/image';
-import { useFetchUserByIdQuery } from './../../redux/features/user/user-api-slice';
-import { useSession } from 'next-auth/react';
 import ErrorMessage from '../error-message/error-message';
+import PageSubheader from '../page-subheader/page-subheader';
+import OrderListCard from '../order-list-card/order-list-card';
+import OrderListCardSkeleton from '../order-list-card/skeleton';
+import { useFetchOrdersByUserQuery } from './../../redux/features/orders/orders-api-slice';
 
 /* eslint-disable-next-line */
 export interface OrdersListProps {}
 
 export function OrdersList(props: OrdersListProps) {
-  const id: string = useSession().data?.user?.id as string;
   const {
-    data: user,
+    data: orders,
     isLoading,
     isError,
     isSuccess,
-  } = useFetchUserByIdQuery(id);
+  } = useFetchOrdersByUserQuery();
 
   return (
     <>
-      <div className="p-4 max-w-md bg-white rounded-lg border shadow-md sm:p-8 ">
-        <div className="flex justify-between items-center mb-4">
-          <p className="text-lg text-rose-700 font-normal">Mis Órdenes</p>
-        </div>
-        {isSuccess && !user?.data.orders.length && (
-          <ErrorMessage message="Aún no hay órdenes" />
-        )}
-
-        {isLoading && (
-          <div
-            role="status"
-            className="animate-pulse flex items-center space-x-4"
-          >
-            <div className="flex-shrink-0">
-              <div className="w-8 h-8 rounded-full shadow bg-gray-300" />
-            </div>
-            <div className="flex-1">
-              <div className="h-5 rounded-full bg-gray-300 w-full mb-1" />
-              <div className="h-5 rounded-full bg-gray-300 w-full" />
-            </div>
-            <div className="inline-flex items-center text-base font-semibold text-gray-900 ">
-              <div className="h-6 w-11 rounded-full bg-gray-300" />
-            </div>
-            <span className="sr-only">Loading...</span>
-          </div>
-        )}
-        {isSuccess && user.data.orders?.length ? (
-          <div className="flow-root">
-            <ul role="list" className="divide-y divide-gray-200 ">
-              {user.data.orders.map((order, i) => (
-                <li key={i} className="py-3 sm:py-4">
-                  <div className="flex items-center space-x-4">
-                    <div className="flex-shrink-0">
-                      {order.images.map((img, i) => {
-                        return (
-                          <Image
-                            key={i}
-                            src={img}
-                            className="w-8 h-8 rounded-full aspect-square object-cover border border-gray-400"
-                            width={64}
-                            height={64}
-                            layout="fixed"
-                            alt={img}
-                          />
-                        );
-                      })}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-900 truncate mb-1">
-                        {order.store}
-                      </p>
-                      <p className="text-sm text-gray-500 truncate mb-1">
-                        {order.comments}
-                      </p>
-                      <p className="text-xs text-gray-800 truncate mb-1 bg-yellow-400 w-max px-2 rounded-md">
-                        {order.status}
-                      </p>
-                    </div>
-                    <div className="inline-flex items-center text-base font-semibold text-gray-900 ">
-                      $23.09
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
+      <PageSubheader
+        title="Mis Ordenes"
+        description="Aquí tienes la lista de tus pedidos"
+      />
+      <div className="grid gap-2" role={'list'}>
+        {isLoading && <OrderListCardSkeleton />}
+        {isError && <ErrorMessage message="¡Ups! ha ocurrido un error" />}
+        {!isLoading && orders?.data.length > 0 ? (
+          <>
+            {orders?.data.map((order, i) => (
+              <OrderListCard
+                key={i}
+                order={order}
+                isLoading={isLoading}
+                isSuccess={isSuccess}
+              />
+            ))}
+          </>
         ) : (
-          <></>
+          <ErrorMessage message="No hay órdenes" />
         )}
       </div>
     </>

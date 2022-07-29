@@ -1,38 +1,29 @@
 import Image from 'next/image';
 import {
-  IoMailOutline,
+  IoExitOutline,
   IoLocationOutline,
   IoPhonePortraitOutline,
-  IoExitOutline,
-  IoAlertCircleOutline,
-  IoSaveOutline,
 } from 'react-icons/io5';
 import { useForm } from 'react-hook-form';
-import { useSession, signOut } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 import {
-  useFetchUserByIdQuery,
+  useFetchUserQuery,
   useUpdateUserMutation,
 } from './../../redux/features/user/user-api-slice';
-import ErrorMessage from '../error-message/error-message';
+import { ErrorMessage, Spinner } from '../';
 
 /* eslint-disable-next-line */
 export interface ProfileCardProps {}
 
 export function ProfileCard(props: ProfileCardProps) {
   // User session
-  const id: string = useSession().data?.user?.id as string;
-  const { data, isLoading, isError, isSuccess } = useFetchUserByIdQuery(id);
+  const { data, isLoading, isError, isSuccess } = useFetchUserQuery('');
   const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation();
 
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm();
+  const { handleSubmit, register } = useForm();
 
   async function submitHandler(values) {
     const profile = {
-      id: id,
       address: values.address,
       phone: values.phone,
     };
@@ -41,34 +32,28 @@ export function ProfileCard(props: ProfileCardProps) {
   }
 
   return (
-    <div className="bg-white shadow rounded-lg p-4 grid gap-4">
-      {isError && (
-        <p className="text-sm font-semibold text-center text-gray-600 flex justify-center items-center">
-          <IoAlertCircleOutline className="text-base mr-1 text-red-600" />
-          ¡Ups! Ha ocurrido un error
-        </p>
-      )}
-      {/* Loading state */}
+    <div className="shadow-black-light/5 grid gap-4 rounded-3xl bg-white p-4 shadow-2xl">
+      {isError && <ErrorMessage message="¡Ups! Ha ocurrido un error" />}
       {isLoading && (
         <div
           role="status"
-          className="animate-pulse flex justify-center flex-wrap gap-1"
+          className="flex animate-pulse flex-wrap justify-center gap-1"
         >
-          <div className="h-32 w-32 p-2 rounded-full shadow bg-gray-300"></div>
-          <div className="rounded-full bg-gray-300 w-full mb-4 mt-2 h-[34px]"></div>
-          <div className="h-7 rounded-full bg-gray-300 w-full"></div>
-          <div className="h-5 rounded-full bg-gray-300 w-full"></div>
-          <div className="h-5 rounded-full bg-gray-300 w-full"></div>
-          <div className="h-5 rounded-full bg-gray-300 w-full"></div>
+          <div className="bg-black-light/30 h-32 w-32 rounded-full p-2 shadow"></div>
+          <div className="bg-black-light/30 mb-4 mt-2 h-[34px] w-full rounded-full"></div>
+          <div className="bg-black-light/30 h-7 w-full rounded-full"></div>
+          <div className="bg-black-light/30 h-5 w-full rounded-full"></div>
+          <div className="bg-black-light/30 h-5 w-full rounded-full"></div>
+          <div className="bg-black-light/30 h-5 w-full rounded-full"></div>
           <span className="sr-only">Loading...</span>
         </div>
       )}
       {isSuccess && (
         <>
-          <div className="flex flex-col gap-1 text-center items-center">
+          <div className="flex flex-col items-center gap-1 text-center">
             <Image
               src={data.data.image}
-              className="h-32 w-32 bg-white p-2 rounded-full shadow mb-4"
+              className="mb-4 h-32 w-32 rounded-full bg-white p-2 shadow"
               width={128}
               height={128}
               layout="fixed"
@@ -76,55 +61,59 @@ export function ProfileCard(props: ProfileCardProps) {
             />
             <button
               onClick={() => signOut()}
-              className=" inline-flex gap-2 items-center relative px-4 border rounded-full mb-4 mt-2"
+              className=" bg-danger relative mb-4 mt-2 inline-flex items-center gap-2 rounded-full px-4 text-white"
             >
-              <IoExitOutline className="text-base block flex-grow-0 flex-shrink-0 h-8" />
+              <IoExitOutline className="block h-8 flex-shrink-0 flex-grow-0 text-base" />
               <span className="text-sm">Cerrar Sesión</span>
             </button>
-            <p className="text-lg text-rose-700 font-normal">
-              {data.data.name}
-            </p>
-            <p className="text-sm font-semibold text-center text-gray-600 flex justify-center items-center">
-              <IoMailOutline className="text-base mr-1" />
+            <p className="text-xl font-normal text-black">{data.data.name}</p>
+            <p className="text-black-light text-center text-lg">
               {data.data.email}
             </p>
-            <p className="text-sm font-semibold text-center text-gray-600 flex justify-center items-center">
-              <IoLocationOutline className="text-base mr-1" />
-              {data.data.address ?? 'No hay domicilio'}
+            <p className="text-black-light inline-flex items-center gap-2 text-center text-lg">
+              <IoLocationOutline className="block h-8 flex-shrink-0 flex-grow-0 text-xl" />
+              {data.data.address
+                ? data.data.address
+                : 'No hay un domicilio registrado'}
             </p>
-            <p className="text-sm font-semibold text-center text-gray-600 flex justify-center items-center">
-              <IoPhonePortraitOutline className="text-base mr-1" />
-              {data.data.phone ?? 'No hay un número registrado'}
+            <p className="text-black-light inline-flex items-center gap-2 text-center text-lg">
+              <IoPhonePortraitOutline className="block h-8 flex-shrink-0 flex-grow-0 text-xl" />
+              {data.data.phone
+                ? data.data.phone
+                : 'No hay un número registrado'}
             </p>
           </div>
-          <h1>{isUpdating}</h1>
           {!data?.data.phone || !data?.data.address ? (
-            <form onSubmit={handleSubmit(submitHandler)} className="grid gap-2">
-              <hr />
+            <form
+              onSubmit={handleSubmit(submitHandler)}
+              className="relative mt-2 grid gap-2"
+            >
               <ErrorMessage message="Hacen falta algunos datos" />
+              {isUpdating && <Spinner />}
               {!data?.data.address && (
                 <input
                   type="text"
                   placeholder="Domicilio"
-                  className="w-full rounded-lg p-2 text-sm bg-gray-100 border border-transparent appearance-none rounded-tg placeholder-gray-400"
+                  className="bg-background rounded-tg placeholder:text-black-light w-full appearance-none rounded-lg py-3 px-4"
                   {...register('address')}
                 />
               )}
               {!data?.data.phone && (
                 <input
-                  type="text"
+                  type="tel"
+                  inputMode="decimal"
+                  autoComplete="tel"
                   placeholder="Número de teléfono"
-                  className="w-full rounded-lg p-2 text-sm bg-gray-100 border border-transparent appearance-none rounded-tg placeholder-gray-400"
+                  className="bg-background rounded-tg placeholder:text-black-light w-full appearance-none rounded-lg py-3 px-4"
                   {...register('phone')}
                 />
               )}
               {!data?.data.phone || !data?.data.address ? (
                 <button
-                  className="mx-auto max-w-max inline-flex gap-2 items-center relative px-4 py-2 border rounded-full shadow-lg bg-rose-500 text-white"
+                  className="bg-apricot relative w-full gap-2 rounded-full py-3 px-4 text-center text-white shadow-lg"
                   type="submit"
                 >
-                  <span className="text-sm">Actualizar mis datos</span>
-                  <IoSaveOutline />
+                  Actualizar mis datos
                 </button>
               ) : null}
             </form>

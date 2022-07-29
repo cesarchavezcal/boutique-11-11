@@ -1,12 +1,15 @@
 export type OrderT = {
-  id: string;
-  client: string;
   address: string;
+  client: string;
   comments: string;
-  phone: string;
-  store: string;
+  cost?: number;
+  coupon?: string;
+  id: string;
   images: string[];
+  payment?: number;
+  phone: string;
   status: string;
+  store: string;
 };
 
 export type UserT = {

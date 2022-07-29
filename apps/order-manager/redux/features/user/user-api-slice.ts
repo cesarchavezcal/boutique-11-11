@@ -1,5 +1,5 @@
-import { UserT } from '@boutique-11-11/models';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { UserT } from '@boutique-11-11/models';
 
 export const userApiSlice = createApi({
   reducerPath: 'userApi',
@@ -9,11 +9,11 @@ export const userApiSlice = createApi({
   }),
   endpoints(builder) {
     return {
-      fetchUserById: builder.query<{ data: UserT }, string>({
+      fetchUser: builder.query<{ data: UserT }, string>({
         query() {
           return `/`;
         },
-        providesTags: (result, error, id) => [{ type: 'User', id }],
+        providesTags: (result, error, id) => [{ type: 'User', id: id }],
       }),
 
       updateUser: builder.mutation<UserT, Partial<UserT>>({
@@ -33,4 +33,4 @@ export const userApiSlice = createApi({
   },
 });
 
-export const { useFetchUserByIdQuery, useUpdateUserMutation } = userApiSlice;
+export const { useFetchUserQuery, useUpdateUserMutation } = userApiSlice;

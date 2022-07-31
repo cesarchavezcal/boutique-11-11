@@ -13,8 +13,8 @@ export function OrdersList(props: OrdersListProps) {
     isLoading,
     isError,
     isSuccess,
+    error,
   } = useFetchOrdersByUserQuery();
-
   return (
     <>
       <PageSubheader
@@ -24,9 +24,9 @@ export function OrdersList(props: OrdersListProps) {
       <div className="grid gap-2" role={'list'}>
         {isLoading && <OrderListCardSkeleton />}
         {isError && <ErrorMessage message="¡Ups! ha ocurrido un error" />}
-        {!isLoading && orders?.data.length > 0 ? (
+        {!isLoading && orders?.length > 0 ? (
           <>
-            {orders?.data.map((order, i) => (
+            {orders?.map((order, i) => (
               <OrderListCard
                 key={i}
                 order={order}

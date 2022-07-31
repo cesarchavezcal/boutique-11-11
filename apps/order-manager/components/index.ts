@@ -13,3 +13,5 @@ export * from './seo/seo';
 export * from './spinner/spinner';
 export * from './top-bar/top-bar';
 export * from './top-nav-bar/top-nav-bar';
+export * from './images-carousel/images-carousel';
+export * from './order-information/order-information';

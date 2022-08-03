@@ -1,9 +1,9 @@
 name: Bug Report
 description: File a bug report
-title: '[Bug]: '
+title: '🐞: '
 labels: ['bug', 'triage']
 assignees:
-  - octocat
+  - cesarchavezcal
 body:
   - type: markdown
     attributes:
@@ -51,7 +51,12 @@ body:
     attributes:
       label: Relevant log output
       description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
-      render: shell
+      value: |
+        1.
+        2.
+        3.
+        ...
+      render: bash
   - type: checkboxes
     id: terms
     attributes:

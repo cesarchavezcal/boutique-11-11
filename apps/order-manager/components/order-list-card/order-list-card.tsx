@@ -1,10 +1,10 @@
-import { OrderT } from '@boutique-11-11/models';
+import { Order } from '@prisma/client';
 import Image from 'next/image';
 import Link from 'next/link';
 
 /* eslint-disable-next-line */
 export interface OrderListCardProps {
-  order?: OrderT;
+  order?: Order;
   isLoading: boolean;
   isSuccess: boolean;
 }

@@ -11,10 +11,7 @@ import {
 const Order = () => {
   const router = useRouter();
   const { id } = router.query;
-
-  const { data, isLoading, isError, error } = useFetchOrderByIdQuery(
-    id as string
-  );
+  const { data, isLoading, isError } = useFetchOrderByIdQuery(id as string);
 
   if (!isError) {
     return (

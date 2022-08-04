@@ -12,11 +12,13 @@ import {
 import Script from 'next/script';
 import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
+import { usePostOrderMutation } from '../../redux/features/orders/orders-api-slice';
 
 export function Index() {
   const router = useRouter();
 
   const { data } = useSession();
+  const [postOrder, { isLoading: isPosting }] = usePostOrderMutation();
   interface ImageI {
     file: HTMLInputElement | unknown;
     base64: string | ArrayBuffer;
@@ -30,7 +32,7 @@ export function Index() {
 
   async function submitHandler(values) {
     setIsSubmitting(true);
- 
+
     if (images.length === 0) {
       setImageError(true);
       setIsSubmitting(false);
@@ -72,14 +74,7 @@ export function Index() {
         status: 'No pedido',
         coupon: values.coupon,
       };
-
-      fetch('/api/orders', {
-        method: 'POST',
-        body: JSON.stringify(orderObject),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
+      postOrder(orderObject)
         .then(() => {
           setIsSubmitting(false);
           router.push('/');
@@ -143,7 +138,7 @@ export function Index() {
               🖼 Selecciona tus imágenes
             </label>
             <div
-              className={`bg-background border-apricot/20 text-black-light w-full rounded-3xl border border-dashed p-4 text-center ${
+              className={`bg-background border-apricot/20 text-black-light w-full rounded-lg border border-dashed p-4 text-center ${
                 imageError && 'border-danger border-2 border-double'
               }`}
               {...getRootProps()}

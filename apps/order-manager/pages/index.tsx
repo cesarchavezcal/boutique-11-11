@@ -12,7 +12,8 @@ export function Profile(props: ProfileProps) {
         title="Mi inicio"
         description="Aquí podrás ver la lista de tus pedidos"
       />
-      <PromoCarousel />
+      {/* Hide until  */}
+      {/* <PromoCarousel /> */}
       <OrdersList />
     </section>
   );

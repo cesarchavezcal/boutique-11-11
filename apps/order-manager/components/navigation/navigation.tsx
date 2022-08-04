@@ -14,7 +14,7 @@ export function Navigation(props: NavigationProps) {
   const activeLink = 'text-apricot';
 
   return (
-    <nav className="inset-y fixed bottom-0 left-0 z-50 flex w-full justify-around rounded-t-3xl bg-white">
+    <nav className="inset-y fixed bottom-0 left-0 z-50 flex w-full justify-around bg-white/70 backdrop-blur-md">
       <Link href={'/'}>
         <a
           className={`grid h-16 w-[calc(100%/3)] place-content-center gap-1 ${

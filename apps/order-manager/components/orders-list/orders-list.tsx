@@ -36,7 +36,7 @@ export function OrdersList(props: OrdersListProps) {
             ))}
           </>
         ) : (
-          <ErrorMessage message="No hay órdenes" />
+          <ErrorMessage message="Aún no hay órdenes" />
         )}
       </div>
     </>

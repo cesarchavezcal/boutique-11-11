@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { unstable_getServerSession } from 'next-auth';
 import { getOrderById } from './services/order.get';
+import { deleteOrderById } from './services/order.delete';
 import { authOptions } from '../auth/[...nextauth]';
 
 export default async function handler(
@@ -13,7 +14,15 @@ export default async function handler(
     switch (req.method) {
       case 'GET':
         return getOrderById(id as string)
-          .then((order) => res.status(200).json(order))
+          .then((order) => {
+            res.status(200).json(order);
+          })
+          .catch((error) => res.status(500).json({ error: error }));
+      case 'DELETE':
+        return deleteOrderById(id as string)
+          .then(() => {
+            res.status(200).json({ status: 'deleted' });
+          })
           .catch((error) => res.status(500).json({ error: error }));
       default:
         throw new Error(

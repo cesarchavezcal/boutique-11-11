@@ -59,17 +59,17 @@ model VerificationToken {
 
 model Order {
   address   String
-  client    User?    @relation(fields: [clientId], references: [id])
-  clientId  String?
+  client    User     @relation(fields: [clientId], references: [id])
+  clientId  String
   comments  String?
-  cost      Int?
+  cost      Int
   coupon    String?
   createdAt DateTime @default(now())
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   images    String[]
   payment   Int?
   phone     String
-  status    String?
+  status    String
   store     String
   updatedAt DateTime @updatedAt
 }

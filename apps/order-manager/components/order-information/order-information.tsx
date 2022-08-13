@@ -102,7 +102,7 @@ export function OrderInformation(props: OrderInformationProps) {
             {props.data?.status === 'No pedido' && (
               <section className="grid gap-1">
                 <small className="text-danger">
-                  Tu pedido aún no ha sido pedido, puedes cancelarlo si lo
+                  Tu pedido aún no ha sido procesado, puedes cancelarlo si lo
                   deseas.
                 </small>
                 <button

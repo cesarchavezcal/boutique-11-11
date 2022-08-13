@@ -3,7 +3,7 @@ export interface SpinnerProps {}
 
 export function Spinner(props: SpinnerProps) {
   return (
-    <div className="bg-apricot/50 absolute inset-0 z-50 grid h-full w-full place-content-center">
+    <div className="bg-apricot/50 fixed inset-0 z-50 grid h-full w-full place-content-center">
       <div className="shadow-black-light/5 rounded bg-white p-4 shadow-2xl">
         <svg
           className="text-apricot-dark h-8 w-8 animate-spin"

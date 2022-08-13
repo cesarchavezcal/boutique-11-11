@@ -21,7 +21,7 @@ export function Navigation(props: NavigationProps) {
             router.pathname === '/' ? activeLink : 'text-black-light'
           }`}
         >
-          <IoHomeOutline className="mx-auto  text-2xl" />
+          <IoHomeOutline className="mx-auto text-2xl" />
           <small>Inicio</small>
         </a>
       </Link>
